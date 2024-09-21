@@ -1,0 +1,138 @@
+/* Body and General Styling */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: #e0f7fa; /* Light pale blue background */
+    margin: 0;
+    padding: 20px;
+}
+
+hr {
+    width: 500px;
+}
+
+#board {
+    width: 400px;
+    height: 400px;
+    background-color: #b3e5fc; /* Light blue board background */
+    border: 6px solid #81d4fa; /* Light blue border */
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.tile {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%; /* Circular tiles */
+    margin: 5px;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #b3e5fc); /* Radial gradient for a 3D effect */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.3); /* Shadows for 3D effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #000000; /* Dark text color */
+    transition: transform 0.2s ease-in-out;
+}
+
+.tile:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Logo Positioning */
+.logo {
+    width: 100px; /* Reduced size */
+    height: auto; /* Maintain proportions */
+    position: fixed; /* Fixed relative to the window */
+    bottom: 10px; /* 10px from the bottom */
+    left: 10px; /* 10px from the left */
+    z-index: 100; /* Above other content */
+}
+
+.logo-top-right {
+    width: 100px; /* Reduced size */
+    height: auto; /* Maintain proportions */
+    position: fixed; /* Fixed relative to the window */
+    top: 10px; /* 10px from the top */
+    right: 10px; /* 10px from the right */
+    z-index: 100; /* Above other content */
+}
+
+/* Game Over Message */
+#game-over-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 2rem;
+    text-align: center;
+    z-index: 1000; /* Ensure it is above the game */
+}
+
+.hidden {
+    display: none; /* Hide message initially */
+}
+
+/* Reset Button Styling */
+.reset-button {
+    background-color: #007bff; /* Blue background */
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.reset-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight grow effect */
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4); /* Glow effect */
+}
+
+.reset-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: 0.5s;
+}
+
+.reset-button:hover::before {
+    left: 100%; /* Slide effect */
+}
+
+.reset-button:active {
+    transform: scale(0.95); /* Slight shrink on click */
+    box-shadow: none; /* Remove shadow on click */
+}
+
+/* Colored Tiles with Blue Gradients */
+.x2 { background: radial-gradient(circle at 30% 30%, #e3f2fd, #bbdefb); }
+.x4 { background: radial-gradient(circle at 30% 30%, #90caf9, #64b5f6); }
+.x8 { background: radial-gradient(circle at 30% 30%, #64b5f6, #42a5f5); }
+.x16 { background: radial-gradient(circle at 30% 30%, #42a5f5, #2196f3); }
+.x32 { background: radial-gradient(circle at 30% 30%, #2196f3, #1e88e5); }
+.x64 { background: radial-gradient(circle at 30% 30%, #1e88e5, #1976d2); }
+.x128 { background: radial-gradient(circle at 30% 30%, #1976d2, #1565c0); }
+.x256 { background: radial-gradient(circle at 30% 30%, #1565c0, #0d47a1); }
+.x512 { background: radial-gradient(circle at 30% 30%, #0d47a1, #0d47a1); }
+.x1024 { background: radial-gradient(circle at 30% 30%, #0d47a1, #0a0a0a); }
+.x2048 { background: radial-gradient(circle at 30% 30%, #0a0a0a, #000000); }
+.x4096 { background: radial-gradient(circle at 30% 30%, #757575, #000000); }
+.x8192 { background: radial-gradient(circle at 30% 30%, #424242, #757575); }
