@@ -4,19 +4,28 @@ body {
     text-align: center;
     background-color: #e0f7fa; /* Light pale blue background */
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
-
+#game{
+    margin: 0;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 hr {
-    width: 500px;
+    width: 50vw;
+    margin: 0;
 }
-
+h2{
+    margin: 0.5%;
+}
 #board {
     width: 400px;
     height: 400px;
     background-color: #b3e5fc; /* Light blue board background */
     border: 6px solid #81d4fa; /* Light blue border */
-    margin: 0 auto;
+    margin: 10px 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -136,3 +145,30 @@ hr {
 .x2048 { background: radial-gradient(circle at 30% 30%, #0a0a0a, #000000); }
 .x4096 { background: radial-gradient(circle at 30% 30%, #757575, #000000); }
 .x8192 { background: radial-gradient(circle at 30% 30%, #424242, #757575); }
+
+@media(max-width: 450px){
+    .logo-top-right{
+        display: none;
+    }
+    #board{
+        width: 97vw;
+    }
+}
+@media(max-width: 420px){
+    .tile{
+        height: 80px;
+        width: 80px;
+    }
+}
+@media(max-width: 380px){
+    .tile{
+        height: 75px;
+        width: 75px;
+    }
+}
+@media(max-width: 350px){
+    .tile{
+        height: 70px;
+        width: 70px;
+    }
+}
