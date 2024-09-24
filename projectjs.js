@@ -33,7 +33,8 @@ function setGame() {
     setTwo();
     setTwo();
     const highScoreElement = document.getElementById("high-score");
-    highScoreElement.innerText = localStorage.getItem('highScore'); // Update displayed high score 
+    highScore = localStorage.getItem('highScore');
+    highScoreElement.innerText = highScore; // Update displayed high score 
 }
 
 function resetGame() {
