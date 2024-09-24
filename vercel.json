@@ -2,7 +2,7 @@
     "redirects": [
       {
         "source": "/",
-        "destination": "/projet.html",
+        "destination": "/project.html",
         "permanent": true
       }
     ]
