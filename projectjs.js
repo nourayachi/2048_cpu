@@ -219,14 +219,22 @@ let touchendY = 0
 
 function handleGesture(e){
   //alert(touchendX - touchstartX);
-  if (touchendX - touchstartX < -45)
-    left();
-  else if (touchendX - touchstartX > 45)
-    right();
-  else if (touchendY - touchstartY < -45)
-    up();
-  else if (touchendY - touchstartY > 45)
-    down();
+  if (touchendX - touchstartX < -45){
+    slideLeft();
+    setTwo()
+    }
+    else if (touchendX - touchstartX > 45){
+        SlideRight();
+        setTwo()
+    }
+    else if (touchendY - touchstartY < -45){
+        SlideUp();
+        setTwo()
+    }
+    else if (touchendY - touchstartY > 45){
+        slideDown();
+        setTwo()
+    }
 }
 document.body.addEventListener('touchstart', e => {
 touchstartX = e.changedTouches[0].screenX
