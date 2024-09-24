@@ -211,3 +211,29 @@ function checkGameOver() {
     }
     return true; // No moves left, game over
 }
+let touchstartX = 0
+let touchendX = 0
+
+let touchstartY = 0
+let touchendY = 0
+
+function handleGesture(e){
+  //alert(touchendX - touchstartX);
+  if (touchendX - touchstartX < -45)
+    left();
+  else if (touchendX - touchstartX > 45)
+    right();
+  else if (touchendY - touchstartY < -45)
+    up();
+  else if (touchendY - touchstartY > 45)
+    down();
+}
+document.body.addEventListener('touchstart', e => {
+touchstartX = e.changedTouches[0].screenX
+touchstartY = e.changedTouches[0].screenY
+})
+document.body.addEventListener('touchend', e => {
+  touchendX = e.changedTouches[0].screenX
+  touchendY = e.changedTouches[0].screenY
+  handleGesture(e)
+})
