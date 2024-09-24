@@ -17,7 +17,7 @@ function setGame() {
     ];
     score = 0;
     document.getElementById("score").innerText = score;
-
+    
     const boardElement = document.getElementById("board");
     boardElement.innerHTML = ''; // Clear the board
 
@@ -32,7 +32,8 @@ function setGame() {
     }
     setTwo();
     setTwo();
-    updateHighScore(); // Update high score display
+    const highScoreElement = document.getElementById("high-score");
+    highScoreElement.innerText = localStorage.getItem('highScore'); // Update displayed high score 
 }
 
 function resetGame() {
@@ -57,6 +58,7 @@ function updateTile(tile, num) {
 function updateHighScore() {
     const highScoreElement = document.getElementById("high-score");
     highScoreElement.innerText = highScore; // Update displayed high score
+    localStorage.setItem('highScore',JSON.stringify(highScore));
 }
 
 document.addEventListener('keyup', (e) => {
@@ -78,13 +80,13 @@ document.addEventListener('keyup', (e) => {
     }
     
     document.getElementById("score").innerText = score;
-
+    
     // Check if the score exceeds the high score and update it
     if (score > highScore) {
         highScore = score;
         updateHighScore();
     }
-
+    
     // After each move, check if the game is over
     if (checkGameOver()) {
         document.getElementById("game-over-message").classList.remove("hidden");
@@ -180,6 +182,7 @@ function setTwo() {
             tile.innerText = "2";
             tile.classList.add("x2");
             found = true;
+            
         }
     }
 }
@@ -218,30 +221,42 @@ let touchstartY = 0
 let touchendY = 0
 
 function handleGesture(e){
-  //alert(touchendX - touchstartX);
   if (touchendX - touchstartX < -45){
-    slideLeft();
-    setTwo()
+      slideLeft();
+      setTwo()
     }
     else if (touchendX - touchstartX > 45){
-        SlideRight();
+        slideRight();
         setTwo()
     }
     else if (touchendY - touchstartY < -45){
-        SlideUp();
+        slideUp();
         setTwo()
     }
     else if (touchendY - touchstartY > 45){
         slideDown();
         setTwo()
     }
+    document.getElementById("score").innerText = score;
+    if (score > highScore) {
+        highScore = score;
+        updateHighScore();
+        
+    }
+    // After each move, check if the game is over
+    if (checkGameOver()) {
+        document.getElementById("game-over-message").classList.remove("hidden");
+    }
 }
+document.querySelector(".reset-button").addEventListener("touchend", resetGame);
 document.body.addEventListener('touchstart', e => {
-touchstartX = e.changedTouches[0].screenX
-touchstartY = e.changedTouches[0].screenY
+    touchstartX = e.changedTouches[0].screenX
+    touchstartY = e.changedTouches[0].screenY
+    e.preventDefault();
 })
 document.body.addEventListener('touchend', e => {
-  touchendX = e.changedTouches[0].screenX
-  touchendY = e.changedTouches[0].screenY
+    touchendX = e.changedTouches[0].screenX
+    touchendY = e.changedTouches[0].screenY
   handleGesture(e)
+  e.preventDefault();
 })
