@@ -1,8 +1,9 @@
 {
-    "rewrites": [
+    "redirects": [
       {
         "source": "/(.*)",
-        "destination": "/projet.html"
+        "destination": "/projet.html",
+        "permanent": true
       }
     ]
   }
