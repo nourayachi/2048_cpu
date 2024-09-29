@@ -4,8 +4,8 @@ self.addEventListener('install', (event) => {
         return cache.addAll([
           '/',
           '/project.html',
-          '/projectcss.css',
-          '/projectjs.js',
+          '/cpu2048.css',
+          '/cpu2048.js',
           '/Cpu_logo_192.jpg',
           '/Cpu_logo_512.jpg'
         ]);

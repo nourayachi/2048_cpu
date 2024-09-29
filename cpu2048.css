@@ -30,6 +30,7 @@ h2{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    overscroll-behavior: contain;
 }
 
 .tile {
@@ -45,7 +46,7 @@ h2{
     font-size: 40px;
     font-weight: bold;
     color: #000000; /* Dark text color */
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.3s ease;
 }
 
 .tile:hover {
@@ -89,7 +90,10 @@ h2{
 .hidden {
     display: none; /* Hide message initially */
 }
-
+.buttons{
+    width: 420px;
+    position: relative;
+}
 /* Reset Button Styling */
 .reset-button {
     background-color: #007bff; /* Blue background */
@@ -130,7 +134,17 @@ h2{
     transform: scale(0.95); /* Slight shrink on click */
     box-shadow: none; /* Remove shadow on click */
 }
+.back{
+    border: none;
+    position: absolute;
+    right:0;
+    cursor: pointer;
+    background-color: transparent;
+}
+.back img{
+    width: 20px;
 
+}
 /* Colored Tiles with Blue Gradients */
 .x2 { background: radial-gradient(circle at 30% 30%, #e3f2fd, #bbdefb); }
 .x4 { background: radial-gradient(circle at 30% 30%, #90caf9, #64b5f6); }

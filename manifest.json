@@ -1,7 +1,7 @@
 {
     "name": "CPU 2048",
-    "short_name": "CPU",
-    "start_url": ".",
+    "short_name": "CPU 2048",
+    "start_url": "./cpu2048.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
@@ -31,6 +31,11 @@
         {
           "src": "2954x1600.png",
           "sizes": "2954x1600",
+          "type": "image/png"
+        },
+        {
+          "src": "1322x661.png",
+          "sizes": "1322x661",
           "type": "image/png"
         }
       ]

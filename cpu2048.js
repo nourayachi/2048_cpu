@@ -3,10 +3,27 @@ var score = 0;
 var highScore = 0; // High score variable
 var rows = 4;
 var columns = 4;
+var lastMove = ""
+let boardHistory = [];
+let scoreHistory = [];
+let undoAfterGameOver = false
+let gameOver = false
 
 window.onload = function() {
     setGame();
 }
+
+function saveState() {
+    // Save a deep copy of the board and score (for the undo function)
+    if(boardHistory.length >= 3){
+        boardHistory.shift()
+    }
+    if(boardHistory.length <= 3){
+        boardHistory.push(JSON.parse(JSON.stringify(board)));
+        scoreHistory.push(score);
+    }
+}
+
 
 function setGame() {
     board = [
@@ -38,8 +55,14 @@ function setGame() {
 }
 
 function resetGame() {
-    document.getElementById("game-over-message").classList.add("hidden"); // Hide game over message
-    setGame(); // Restart the game
+    if (!document.getElementById("game-over-message").classList.contains("hidden")){
+        document.getElementById("game-over-message").classList.add("hidden"); // Hide game over message
+        setGame(); // Restart the game
+    }else {
+        if (confirm("Hey CPUer! Do you really want to reset the game?")){
+            setGame(); // Restart the game
+        }
+    }
 }
 
 function updateTile(tile, num) {
@@ -65,21 +88,28 @@ function updateHighScore() {
 document.addEventListener('keyup', (e) => {
     if (e.code == "ArrowLeft") {
         slideLeft();
-        setTwo();
+        if (lastMove!="left")
+            setTwo();
+        lastMove = "left"
     }
     else if (e.code == "ArrowRight") {
         slideRight();
-        setTwo();
+        if (lastMove!="right")
+            setTwo();
+        lastMove = "right"
     }
     else if (e.code == "ArrowUp") {
         slideUp();
-        setTwo();
+        if (lastMove!="up")
+            setTwo();
+        lastMove = "up"
     }
     else if (e.code == "ArrowDown") {
         slideDown();
-        setTwo();
+        if (lastMove!="down")
+            setTwo();
+        lastMove = "down"
     }
-    
     document.getElementById("score").innerText = score;
     
     // Check if the score exceeds the high score and update it
@@ -115,6 +145,7 @@ function slide(row) {
 }
 
 function slideLeft() {
+    if (!gameOver) saveState();
     for (let r = 0; r < rows; r++) {
         let row = board[r];
         row = slide(row);
@@ -128,6 +159,7 @@ function slideLeft() {
 }
 
 function slideRight() {
+    if (!gameOver) saveState();
     for (let r = 0; r < rows; r++) {
         let row = board[r];
         row.reverse();
@@ -142,6 +174,7 @@ function slideRight() {
 }
 
 function slideUp() {
+    if (!gameOver) saveState();
     for (let c = 0; c < columns; c++) {
         let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
         row = slide(row);
@@ -155,6 +188,7 @@ function slideUp() {
 }
 
 function slideDown() {
+    if (!gameOver) saveState();
     for (let c = 0; c < columns; c++) {
         let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
         row.reverse();
@@ -188,6 +222,27 @@ function setTwo() {
     }
 }
 
+function undoMove() {
+    if (boardHistory.length > 0) {
+        if(gameOver){
+            document.getElementById("game-over-message").classList.add("hidden");
+            undoAfterGameOver = true
+            gameOver = false
+        }
+        board = boardHistory.pop();  // Restore the previous board
+        score = scoreHistory.pop();  // Restore the previous score
+        // Update the visual board
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < columns; c++) {
+                let tile = document.getElementById(r.toString() + "-" + c.toString());
+                let num = board[r][c];
+                updateTile(tile, num); 
+            }
+        }
+    }
+}
+
+
 function hasEmptyTile() {
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
@@ -213,8 +268,11 @@ function checkGameOver() {
             }
         }
     }
+    gameOver = true
     return true; // No moves left, game over
 }
+
+//For PWA
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('service-worker.js')
@@ -235,20 +293,28 @@ let touchendY = 0
 
 function handleGesture(e){
   if (touchendX - touchstartX < -45){
-      slideLeft();
-      setTwo()
+        slideLeft();
+        if (lastMove!="left")
+            setTwo();
+        lastMove = "left"
     }
     else if (touchendX - touchstartX > 45){
         slideRight();
-        setTwo()
+        if (lastMove!="right")
+            setTwo();
+        lastMove = "right"
     }
     else if (touchendY - touchstartY < -45){
         slideUp();
-        setTwo()
+        if (lastMove!="up")
+            setTwo();
+        lastMove = "up"
     }
     else if (touchendY - touchstartY > 45){
         slideDown();
-        setTwo()
+        if (lastMove!="down")
+            setTwo();
+        lastMove = "down"
     }
     document.getElementById("score").innerText = score;
     if (score > highScore) {
@@ -257,19 +323,17 @@ function handleGesture(e){
         
     }
     // After each move, check if the game is over
-    if (checkGameOver()) {
+    if (!undoAfterGameOver && checkGameOver()) {
         document.getElementById("game-over-message").classList.remove("hidden");
     }
 }
-document.querySelector(".reset-button").addEventListener("touchend", resetGame);
+document.querySelector(".reset-button").addEventListener("click", ()=>resetGame);
 document.body.addEventListener('touchstart', e => {
     touchstartX = e.changedTouches[0].screenX
     touchstartY = e.changedTouches[0].screenY
-    e.preventDefault();
 })
 document.body.addEventListener('touchend', e => {
     touchendX = e.changedTouches[0].screenX
     touchendY = e.changedTouches[0].screenY
   handleGesture(e)
-  e.preventDefault();
 })
