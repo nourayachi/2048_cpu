@@ -1,3 +1,4 @@
+const boardElement = document.getElementById("board");
 var board;
 var score = 0;
 var highScore = 0; // High score variable
@@ -35,7 +36,6 @@ function setGame() {
     score = 0;
     document.getElementById("score").innerText = score;
     
-    const boardElement = document.getElementById("board");
     boardElement.innerHTML = ''; // Clear the board
 
     for (let r = 0; r < rows; r++) {
@@ -328,11 +328,11 @@ function handleGesture(e){
     }
 }
 document.querySelector(".reset-button").addEventListener("click", ()=>resetGame);
-document.body.addEventListener('touchstart', e => {
+boardElement.addEventListener('touchstart', e => {
     touchstartX = e.changedTouches[0].screenX
     touchstartY = e.changedTouches[0].screenY
 })
-document.body.addEventListener('touchend', e => {
+boardElement.addEventListener('touchend', e => {
     touchendX = e.changedTouches[0].screenX
     touchendY = e.changedTouches[0].screenY
   handleGesture(e)

@@ -21,6 +21,7 @@ h2{
     margin: 0.5%;
 }
 #board {
+    overscroll-behavior: contain;
     width: 400px;
     height: 400px;
     background-color: #b3e5fc; /* Light blue board background */
@@ -30,7 +31,6 @@ h2{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    overscroll-behavior: contain;
 }
 
 .tile {
@@ -164,7 +164,7 @@ h2{
     .logo-top-right{
         display: none;
     }
-    #board{
+    #board, .buttons{
         width: 97vw;
     }
 }
