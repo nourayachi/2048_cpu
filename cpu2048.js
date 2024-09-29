@@ -13,7 +13,9 @@ let gameOver = false
 window.onload = function() {
     setGame();
 }
-
+window.onbeforeunload = function() {
+    return "Hey CPUer! Do you really want to refresh the page?";
+}
 function saveState() {
     // Save a deep copy of the board and score (for the undo function)
     if(boardHistory.length >= 3){
