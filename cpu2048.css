@@ -5,13 +5,16 @@ body {
     background-color: #e0f7fa; /* Light pale blue background */
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 #game{
-    margin: 0;
     max-height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    height: 100vh;
 }
 hr {
     width: 50vw;
